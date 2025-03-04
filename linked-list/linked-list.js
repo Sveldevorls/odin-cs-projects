@@ -62,8 +62,12 @@ class LinkedList {
     }
 
     at(index) {
-        if (this.headNode == null || index < 0) return null
+        if (this.headNode == null && index == 0) return null
 
+        if (!Number.isInteger(index)) throw new Error("Index must be an integer")
+        if (index < 0) throw new Error("Index can not be smaller than 0")
+        if (index >= this.size()) throw new Error("Index out of bound")
+        
         let curr = this.headNode;
         let currIndex = 0;
 
@@ -80,10 +84,7 @@ class LinkedList {
     }
 
     pop() {
-        if (this.headNode == null) {
-            console.log("Unable to pop: list is empty");
-            return
-        }
+        if (this.headNode == null) throw new Error("List is empty")
 
         // List contains only one item
         else if (this.headNode.nextNode == null) {
@@ -147,7 +148,10 @@ class LinkedList {
     }
 
     insertAt(value, index) {
-        if (this.headNode == null || index < 0) return null
+        if (!Number.isInteger(index)) throw new Error("Index must be an integer")
+        if (index < 0) throw new Error("Index can not be smaller than 0")
+        if ((this.headNode != null && index >= this.size()) ||
+            (this.headNode == null && index > 0)) throw new Error("Index out of bound")
 
         if (index == 0) {
             let oldHead = this.headNode;
@@ -174,7 +178,11 @@ class LinkedList {
     }
 
     removeAt(index) {
-        if (this.headNode == null || index < 0) return null
+        if (this.headNode == null) throw new Error("List is already empty") 
+        if (!Number.isInteger(index)) throw new Error("Index must be an integer")
+        if (index < 0) throw new Error("Index can not be smaller than 0")
+        if (index >= this.size()) throw new Error("Index out of bound")
+    
 
         if (index == 0) {
             this.headNode = this.headNode.nextNode;
