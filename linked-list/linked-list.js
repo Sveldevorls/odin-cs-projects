@@ -145,4 +145,54 @@ class LinkedList {
 
         return listString
     }
+
+    insertAt(value, index) {
+        if (this.headNode == null || index < 0) return null
+
+        if (index == 0) {
+            let oldHead = this.headNode;
+            this.headNode = new Node(value);
+            this.headNode.nextNode = oldHead;
+        }
+        else {
+            let i = 0;
+            let targetNode = this.headNode;
+            let targetPrevNode = targetNode;
+
+            while (i < index) {
+                targetNode = targetNode.nextNode;
+                if (i != 0) {
+                    targetPrevNode = targetPrevNode.nextNode;
+                }
+                i++;
+            }
+
+            let newInsertedNode = new Node(value);
+            newInsertedNode.nextNode = targetNode;
+            targetPrevNode.nextNode = newInsertedNode;
+        }
+    }
+
+    removeAt(index) {
+        if (this.headNode == null || index < 0) return null
+
+        if (index == 0) {
+            this.headNode = this.headNode.nextNode;
+        }
+        else {
+            let i = 0;
+            let targetNode = this.headNode;
+            let targetPrevNode = targetNode;
+
+            while (i < index) {
+                targetNode = targetNode.nextNode;
+                if (i != 0) {
+                    targetPrevNode = targetPrevNode.nextNode;
+                }
+                i++;
+            }
+
+            targetPrevNode.nextNode = targetNode.nextNode;
+        }
+    }
 }
